@@ -1,9 +1,9 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #111;
-  font-family: Arial, sans-serif;
-  color: #fff;
+  background-color: #ffffff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,81 +11,85 @@ body {
 }
 
 .container {
-  background-color: #1e1e1e;
-  padding: 20px;
-  border-radius: 12px;
   width: 90%;
-  max-width: 400px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+  max-width: 420px;
+  padding: 24px;
 }
 
 h2 {
   text-align: center;
-  margin-bottom: 25px;
-  color: #fff;
+  font-size: 24px;
+  margin-bottom: 28px;
+  font-weight: 600;
 }
 
 label {
-  display: block;
-  margin-bottom: 5px;
   font-size: 14px;
-  color: #ccc;
+  margin-bottom: 6px;
+  display: block;
+  color: #333;
 }
 
 .input-group {
   display: flex;
   align-items: center;
-  margin-bottom: 15px;
-  background: #2a2a2a;
-  border-radius: 8px;
-  overflow: hidden;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin-bottom: 18px;
+  padding: 10px;
+  gap: 8px;
 }
 
 .input-group input {
   flex: 1;
-  padding: 10px;
   border: none;
   outline: none;
   background: transparent;
-  color: #fff;
-  font-size: 14px;
+  font-size: 15px;
+  color: #000;
 }
 
+.input-group span,
 .input-group button {
-  background-color: #333;
-  color: #00ffcc;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
   font-size: 14px;
+  color: #0040ff;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.icon-btn {
+  font-size: 20px;
+  color: #555;
+}
+
+#usd-value {
+  font-size: 13px;
+  color: #777;
+  text-align: left;
+  margin-bottom: 20px;
 }
 
 #next-btn {
   width: 100%;
-  padding: 12px;
-  background-color: #333;
-  color: #ccc;
+  padding: 14px;
+  background-color: #0040ff;
+  color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: 999px;
   font-size: 16px;
+  font-weight: 500;
   cursor: pointer;
 }
 
 #next-btn:hover {
-  background-color: #444;
+  background-color: #0033cc;
 }
 
 .status {
-  margin-top: 15px;
+  margin-top: 18px;
   font-size: 14px;
-  color: #00ffcc;
   text-align: center;
-}
-
-#usd-value {
-  font-size: 14px;
-  color: #888;
-  margin-top: -10px;
-  margin-bottom: 20px;
-  text-align: right;
+  color: #00aa00;
 }
