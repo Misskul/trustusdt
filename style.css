@@ -1,73 +1,91 @@
 body {
-  font-family: Arial, sans-serif;
-  background: #fff;
-  padding: 20px;
   margin: 0;
+  padding: 0;
+  background-color: #111;
+  font-family: Arial, sans-serif;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .container {
-  max-width: 500px;
-  margin: auto;
-  padding: 30px 20px;
-  background: #fff;
+  background-color: #1e1e1e;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #fff;
 }
 
 label {
   display: block;
   margin-bottom: 5px;
-  font-weight: bold;
-  margin-top: 20px;
+  font-size: 14px;
+  color: #ccc;
 }
 
 .input-group {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
-  position: relative;
+  margin-bottom: 15px;
+  background: #2a2a2a;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .input-group input {
   flex: 1;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  font-size: 16px;
-  outline: none;
-}
-
-.paste-btn,
-.max-btn {
-  position: absolute;
-  right: 10px;
-  background: none;
+  padding: 10px;
   border: none;
-  color: #007bff;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.unit {
-  position: absolute;
-  right: 60px;
-  color: gray;
+  outline: none;
+  background: transparent;
+  color: #fff;
   font-size: 14px;
 }
 
-.next-btn {
-  width: 100%;
-  padding: 15px;
-  background: #0047ff;
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
+.input-group button {
+  background-color: #333;
+  color: #00ffcc;
   border: none;
-  border-radius: 30px;
+  padding: 10px;
   cursor: pointer;
-  margin-top: 30px;
+  font-size: 14px;
 }
 
-#status {
+#next-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #333;
+  color: #ccc;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#next-btn:hover {
+  background-color: #444;
+}
+
+.status {
   margin-top: 15px;
+  font-size: 14px;
+  color: #00ffcc;
   text-align: center;
-  color: green;
+}
+
+#usd-value {
+  font-size: 14px;
+  color: #888;
+  margin-top: -10px;
+  margin-bottom: 20px;
+  text-align: right;
 }
