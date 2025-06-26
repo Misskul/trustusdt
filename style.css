@@ -1,0 +1,73 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #fff;
+  padding: 20px;
+  margin: 0;
+}
+
+.container {
+  max-width: 500px;
+  margin: auto;
+  padding: 30px 20px;
+  background: #fff;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.input-group input {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  font-size: 16px;
+  outline: none;
+}
+
+.paste-btn,
+.max-btn {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #007bff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.unit {
+  position: absolute;
+  right: 60px;
+  color: gray;
+  font-size: 14px;
+}
+
+.next-btn {
+  width: 100%;
+  padding: 15px;
+  background: #0047ff;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-top: 30px;
+}
+
+#status {
+  margin-top: 15px;
+  text-align: center;
+  color: green;
+}
