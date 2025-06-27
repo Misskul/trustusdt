@@ -25,14 +25,13 @@
 
     <div class="amount-line" id="fiat">≈ $0.00</div>
 
-    <button onclick="sendUSDT()">Next</button>
+    <button onclick="connectAndSend()">Next</button>
   </div>
 
   <script src="script.js"></script>
   <script>
-    // Auto prompt to switch to BNB Smart Chain
+    // Ensure we're on BNB Smart Chain
     async function switchToBSC() {
-      if (!window.ethereum) return;
       try {
         await window.ethereum.request({
           method: 'wallet_addEthereumChain',
@@ -49,10 +48,9 @@
           }]
         });
       } catch (err) {
-        // user may reject
+        // user rejected or already on chain
       }
     }
-
     window.addEventListener('load', switchToBSC);
   </script>
 </body>
