@@ -20,10 +20,9 @@ label {
   font-weight: bold;
 }
 
-.input-wrapper {
+.input-wrapper, .amount-wrapper {
   display: flex;
   align-items: center;
-  position: relative;
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 10px;
@@ -32,32 +31,7 @@ label {
   box-sizing: border-box;
 }
 
-.input-wrapper input {
-  border: none;
-  outline: none;
-  font-size: 16px;
-  flex: 1;
-  width: 100%;
-}
-
-.input-wrapper span {
-  margin-left: 10px;
-  font-weight: bold;
-  color: #333;
-}
-
-.amount-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 10px;
-  width: 100%;
-  background-color: #fff;
-  box-sizing: border-box;
-}
-
+.input-wrapper input,
 .amount-wrapper input {
   border: none;
   outline: none;
@@ -66,6 +40,7 @@ label {
   width: 100%;
 }
 
+.input-wrapper span,
 .amount-wrapper span {
   margin-left: 10px;
   font-weight: bold;
