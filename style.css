@@ -1,95 +1,78 @@
 body {
+  font-family: sans-serif;
+  background: #fff;
   margin: 0;
   padding: 0;
-  background-color: #ffffff;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
 }
 
 .container {
-  width: 90%;
-  max-width: 420px;
-  padding: 24px;
+  padding: 20px;
+  max-width: 400px;
+  margin: auto;
+  margin-top: 40px;
 }
 
-h2 {
+h1 {
   text-align: center;
-  font-size: 24px;
-  margin-bottom: 28px;
-  font-weight: 600;
+  font-size: 22px;
+  margin-bottom: 20px;
 }
 
 label {
-  font-size: 14px;
-  margin-bottom: 6px;
   display: block;
-  color: #333;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: 600;
 }
 
 .input-group {
   display: flex;
   align-items: center;
-  background-color: #f8f8f8;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  margin-bottom: 18px;
-  padding: 10px;
-  gap: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 5px;
+  overflow: hidden;
 }
 
 .input-group input {
   flex: 1;
   border: none;
+  padding: 10px;
   outline: none;
-  background: transparent;
-  font-size: 15px;
-  color: #000;
+  font-size: 16px;
 }
 
-.input-group span,
-.input-group button {
-  font-size: 14px;
-  color: #0040ff;
+.input-group button,
+.input-group span {
   background: none;
   border: none;
+  color: #0050ff;
+  font-size: 14px;
+  padding: 5px 10px;
   cursor: pointer;
-}
-
-.icon-btn {
-  font-size: 20px;
-  color: #555;
 }
 
 #usd-value {
-  font-size: 13px;
-  color: #777;
-  text-align: left;
-  margin-bottom: 20px;
+  color: #555;
+  margin-top: 5px;
 }
 
-#next-btn {
+.next-btn {
   width: 100%;
-  padding: 14px;
-  background-color: #0040ff;
-  color: #fff;
+  background: #0033ff;
+  color: white;
   border: none;
-  border-radius: 999px;
+  padding: 15px;
+  margin-top: 30px;
+  border-radius: 30px;
   font-size: 16px;
-  font-weight: 500;
   cursor: pointer;
+  font-weight: bold;
 }
 
-#next-btn:hover {
-  background-color: #0033cc;
-}
-
-.status {
-  margin-top: 18px;
-  font-size: 14px;
+#status {
+  margin-top: 20px;
   text-align: center;
-  color: #00aa00;
+  font-size: 14px;
+  color: green;
 }
