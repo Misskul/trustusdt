@@ -1,71 +1,103 @@
 body {
-  font-family: sans-serif;
-  background: #f5f5f5;
-  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
+  padding: 0;
+  background: #fff;
+  color: #333;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .container {
-  max-width: 400px;
-  background: white;
   padding: 20px;
-  margin: auto;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  max-width: 500px;
+  margin: 0 auto;
 }
 
-.label {
+label {
   display: block;
-  margin-bottom: 8px;
+  margin: 20px 0 8px;
   font-weight: bold;
-  color: #333;
 }
 
-.input-box {
+.input-wrapper {
   display: flex;
   align-items: center;
   position: relative;
   border: 1px solid #ccc;
-  border-radius: 12px;
+  border-radius: 10px;
   padding: 10px;
-  margin-bottom: 16px;
-  background: #fdfdfd;
+  background-color: #fff;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.input-box input {
+.input-wrapper input {
   border: none;
-  flex: 1;
-  font-size: 16px;
-  background: transparent;
   outline: none;
+  font-size: 16px;
+  flex: 1;
+  width: 100%;
 }
 
-.cut, .paste, .unit, .max {
+.input-wrapper span {
+  margin-left: 10px;
+  font-weight: bold;
+  color: #333;
+}
+
+.amount-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  width: 100%;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+.amount-wrapper input {
+  border: none;
+  outline: none;
+  font-size: 16px;
+  flex: 1;
+  width: 100%;
+}
+
+.amount-wrapper span {
+  margin-left: 10px;
+  font-weight: bold;
+  color: #333;
+}
+
+.amount-line {
+  margin-top: 5px;
   font-size: 14px;
-  color: #007aff;
-  margin-left: 8px;
-  cursor: pointer;
-}
-
-.cut {
-  margin-right: 8px;
-  color: red;
+  color: #666;
 }
 
 button {
   width: 100%;
-  padding: 14px;
-  background: #007aff;
-  color: white;
+  padding: 15px;
+  margin-top: 30px; /* thoda niche kiya gaya */
+  background-color: #002fff;
+  color: #fff;
+  font-weight: bold;
   font-size: 18px;
   border: none;
-  border-radius: 12px;
+  border-radius: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   cursor: pointer;
 }
 
-#live-usdt-amount {
-  text-align: right;
-  font-size: 14px;
-  margin: -12px 0 16px;
-  color: #555;
+button:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 15px;
+  }
 }
