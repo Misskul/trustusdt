@@ -1,78 +1,29 @@
-body {
-  font-family: sans-serif;
-  background: #fff;
-  margin: 0;
-  padding: 0;
-}
+body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #ffffff; }
 
-.container {
-  padding: 20px;
-  max-width: 400px;
-  margin: auto;
-  margin-top: 40px;
-}
+.container { max-width: 420px; margin: 0 auto; padding: 30px 20px; box-sizing: border-box; }
 
-h1 {
-  text-align: center;
-  font-size: 22px;
-  margin-bottom: 20px;
-}
+h2 { text-align: center; margin-bottom: 30px; font-size: 24px; color: #000; }
 
-label {
-  display: block;
-  margin-top: 15px;
-  margin-bottom: 5px;
-  font-weight: 600;
-}
+label { font-size: 14px; color: #6e6e6e; margin-bottom: 5px; display: block; }
 
-.input-group {
-  display: flex;
-  align-items: center;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 5px;
-  overflow: hidden;
-}
+.input-group { display: flex; align-items: center; border: 1px solid #ccc; border-radius: 8px; padding: 8px; margin-bottom: 15px; background-color: #f9f9f9; }
 
-.input-group input {
-  flex: 1;
-  border: none;
-  padding: 10px;
-  outline: none;
-  font-size: 16px;
-}
+.input-group input { flex: 1; border: none; outline: none; font-size: 16px; background: transparent; color: #000; }
 
-.input-group button,
-.input-group span {
-  background: none;
-  border: none;
-  color: #0050ff;
-  font-size: 14px;
-  padding: 5px 10px;
-  cursor: pointer;
-}
+.input-group button, .input-group span { font-size: 14px; color: #0025ff; margin-left: 10px; background: none; border: none; cursor: pointer; }
 
-#usd-value {
-  color: #555;
-  margin-top: 5px;
-}
+#usdValue { font-size: 14px; color: #6e6e6e; margin-bottom: 30px; text-align: left; padding-left: 5px; }
 
-.next-btn {
-  width: 100%;
-  background: #0033ff;
-  color: white;
-  border: none;
-  padding: 15px;
-  margin-top: 30px;
-  border-radius: 30px;
-  font-size: 16px;
-  cursor: pointer;
-  font-weight: bold;
-}
+.next-button { width: 100%; background-color: #0025ff; color: #fff; font-size: 18px; font-weight: bold; padding: 15px; border: none; border-radius: 24px; cursor: pointer; box-shadow: 0 5px 15px rgba(0, 0, 255, 0.3); transition: background-color 0.2s ease-in-out; }
 
-#status {
-  margin-top: 20px;
-  text-align: center;
-  font-size: 14px;
-  color: green;
-}
+.next-button:hover { background-color: #0011cc; }
+
+@media (max-width: 480px) { .container { padding: 20px 15px; }
+
+.input-group button, .input-group span { font-size: 13px; margin-left: 6px; }
+
+.next-button { font-size: 16px; padding: 12px; }
+
+h2 { font-size: 20px; }
+
+input::placeholder { font-size: 14px; } }
