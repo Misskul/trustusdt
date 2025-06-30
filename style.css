@@ -2,73 +2,86 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
-  background: #fff;
+  background: #ffffff;
   color: #333;
   max-width: 100%;
   overflow-x: hidden;
 }
 
 .container {
-  padding: 20px;
+  padding: 25px;
   max-width: 500px;
   margin: 0 auto;
 }
 
 label {
   display: block;
-  margin: 20px 0 8px;
-  font-weight: bold;
+  margin: 22px 0 10px;
+  font-weight: 600;
+  font-size: 16px;
 }
 
 .input-wrapper, .amount-wrapper {
   display: flex;
   align-items: center;
   border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 10px;
+  border-radius: 30px;
+  padding: 14px 18px;
   background-color: #fff;
   width: 100%;
   box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: all 0.2s ease-in-out;
 }
 
 .input-wrapper input,
 .amount-wrapper input {
   border: none;
   outline: none;
-  font-size: 16px;
+  font-size: 17px;
+  font-weight: 600;
   flex: 1;
   width: 100%;
+  background: transparent;
 }
 
 .input-wrapper span,
 .amount-wrapper span {
   margin-left: 10px;
   font-weight: bold;
-  color: #333;
+  font-size: 14px;
+  color: #002fff;
+  cursor: pointer;
 }
 
 .amount-line {
-  margin-top: 5px;
-  font-size: 14px;
+  margin-top: 8px;
+  font-size: 15px;
   color: #666;
+  font-weight: 500;
 }
 
 button {
   width: 100%;
-  padding: 15px;
-  margin-top: 30px;
+  padding: 16px;
+  margin-top: 40px;
   background-color: #002fff;
   color: #fff;
   font-weight: bold;
   font-size: 18px;
   border: none;
   border-radius: 30px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background-color: #0018b5;
 }
 
 button:active {
-  transform: scale(0.98);
+  transform: scale(0.97);
 }
 
 @media (max-width: 600px) {
